@@ -1,0 +1,60 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Nama:</b>
+  <%= @location.nama %>
+</p>
+
+<p>
+  <b>Jalan:</b>
+  <%= @location.jalan %>
+</p>
+
+<p>
+  <b>Kota:</b>
+  <%= @location.kota %>
+</p>
+
+<p>
+  <b>Provinsi:</b>
+  <%= @location.provinsi %>
+</p>
+
+<p>
+  <b>Latitude:</b>
+  <%= @location.latitude %>
+</p>
+
+<p>
+  <b>Longitude:</b>
+  <%= @location.longitude %>
+</p>
+
+<p>
+  <b>Gmaps:</b>
+  <%= @location.gmaps %>
+</p>
+<%if signed_in?%>
+<p>
+	<%@kol.each do |f|%>
+	<%if f.id==@location.id%>
+		Jarak dari tempat anda : <%=f.distance.round(3)%> km
+	<%end%>
+	<%end%>
+</p>
+<h2>Tempat Terdekat Lainnya : </h2>
+<p>
+	<%@kol.each do |f|%>
+	<%if f.id != @location.id%>
+	<p><%=link_to f.nama, f%>(<%=f.distance.round(3)%> km)</p>
+	<%end%>
+	<%end%>
+</p>
+<%= link_to 'Edit', edit_location_path(@location) %> |
+<%= link_to 'Back', locations_path %>
+<%= gmaps(markers: {data: @json}, map_options: {auto_adjust: true, auto_zoom: false, zoom:19},:direction=>{
+ 		:data => {:from=>"#{user_sekarang.alamat},#{user_sekarang.kota},#{user_sekarang.provinsi}", :to=>"#{@location.jalan},#{@location.kota},#{@location.provinsi}"}}
+ 		) %>
+ <%else%>
+ <%= gmaps(markers: {data: @json}, map_options: {auto_adjust: true, auto_zoom: false, zoom:15}) %>
+<%end%>

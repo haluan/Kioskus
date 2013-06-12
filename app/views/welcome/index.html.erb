@@ -1,0 +1,40 @@
+<%if signed_in?%>
+<div class="navbar-form text-center">
+<%= form_for user_sekarang, class:"navbar-form text-center" do |f| %>
+    <%= f.text_field :alamat, placeholder: 'alamat', class:"span3", id:"fname" %>
+
+    <%= f.text_field :kota, placeholder: 'kota' , class:"span3", id:"fname"%>
+
+    <%= f.text_field :provinsi, placeholder: 'provinsi' , class:"span3", id:"fname"%>
+
+    <%= f.submit 'update lokasi' ,class:"btn"%>
+
+<% end %>
+</div>
+
+<div class="row-fluid" style="margin-left: 40%;margin-right: 40%;">
+<%@locations.each do|f|%>
+
+<div>
+<h3><%=f.nama%></h3>
+<div class="row">
+<div class="span2"><%=image_tag f.photo(:small)%></div>
+<div class="span3">
+	<p>Jarak : <%=f.distance.round(3)%> km</p>
+	<p><%=f.jalan%>,<%=f.kota%></p>
+	<p><%=link_to "view", f, class:"btn"%></p>
+</div>
+</div>
+</div>
+<%end%>
+</div>
+
+<%else%>
+<h1 style="text-align: center;">SELAMAT DATANG</h1>
+<%= gmaps(markers: {data: @locations}, map_options: {auto_adjust: true, auto_zoom: true, zoom:3}) %>
+<p style="margin-left: 5%;">Kiosku membantu anda mencari lokasi penjualan tiket kereta api, tiket peswawat, 
+	tiket bus, tempat pengiriman jasa paket, dan jasa travel di seluruh Indonesia. Kami juga membantu mencari
+	lokasi-lokasi tersebut berdasarkan tempat terdekat anda saat ini dan tempat yang anda inginkan. 
+	Ayo segera daftar untuk dapat menikmati layanan kami!</p>
+	<p  style="text-align: center;"><%=link_to "Sign Up", signup_path, class:"btn"%></p>
+<%end%>

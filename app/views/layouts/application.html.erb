@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Kiosku</title>
+  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <%= javascript_include_tag "application", :media=>"all" %>
+  <%= stylesheet_link_tag 'gmaps4rails' %>
+  <%= csrf_meta_tags %>
+  <%= render 'layouts/shim' %>
+</head>
+<body>
+<header>
+	<div class="navbar">
+		<div class="navbar-inner">
+			<b class="brand">Kiosku</b>
+			<ul class="nav">
+				<li class="active"><%= link_to "Home", root_path%></li>
+				<%if signed_in?%>
+				
+					<li class="dropdown offset11 ">
+						<a class="dropdown-toggle" data-toggle="dropdown"><%=user_sekarang.nama%>
+							<b class="caret"></b>
+						</a>
+						<ul class="dropdown-menu">
+							<li><a href="#">Action</a></li>
+							<li><a href="#">Another action</a></li>
+							<li><a href="#"><%= link_to "Edit Profile", edit_user_path(user_sekarang) %></a></li>
+							<li class="divider"></li>
+							<li><a href="#"><%= link_to "Sign out", signout_path, method: "delete" %></a></li>										
+						
+					</li>
+					
+				</ul>
+				
+				<%else%>
+				<li class="active offset11"><%= link_to "Sign In", signin_path%></li>
+				<%end%>
+				<li class="active"></li>
+			</ul>
+		</div>
+	</div>
+</header>
+<%= yield %>
+<%= yield :scripts %>
+</body>
+</html>

@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  nama: MyString
+  jalan: MyString
+  kota: MyString
+  provinsi: MyString
+  latitude: 1.5
+  longitude: 1.5
+  gmaps: false
+
+two:
+  nama: MyString
+  jalan: MyString
+  kota: MyString
+  provinsi: MyString
+  latitude: 1.5
+  longitude: 1.5
+  gmaps: false
